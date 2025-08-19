@@ -7,9 +7,8 @@ load_dotenv()
 # --- Configuration ---
 PDF_PATH = "data/Dokument_2025-08-18_190506_ocred.pdf"
 OUTPUT_DIR = "output_documents"
-USE_MODEL = "ollama"  # "gemini" or "ollama"
-OLLAMA_MODEL_NAME = "llama3.1:8b"
-GEMINI_MODEL_NAME = "gemini-1.5-flash"
+OLLAMA_MODEL = "llama3.1:8b"
+OLLAMA_HOST = "http://127.0.0.1:11434"
 
 # --- MongoDB and Embedding Setup ---
 MONGO_URI = os.getenv("MONGO_URI")

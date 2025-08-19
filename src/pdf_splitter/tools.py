@@ -23,14 +23,18 @@ EMBEDDINGS = OllamaEmbeddings(model="nomic-embed-text")
 @tool
 def read_consecutive_pages(current_page_index: int) -> str:
     """
-    Reads and returns the text content of the current page and the next page.
+    Reads and returns the text content of the current page and the next page from the PDF.
+
+    Args:
+        current_page_index (int): The index of the current page to read.
+
+    Returns:
+        str: Combined text content of the current and next page, or an error message if out of bounds.
     """
     content = ""
     try:
         reader = PdfReader(config.PDF_PATH)
         # Read current page
-        if not current_page_index:
-            current_page_index = 0  # Default to first page if not provided
         if 0 <= current_page_index < len(reader.pages):
             content += f"--- Page {current_page_index + 1} Content ---\n{reader.pages[current_page_index].extract_text()}\n\n"
         else:
@@ -45,9 +49,19 @@ def read_consecutive_pages(current_page_index: int) -> str:
     except Exception as e:
         return f"Error reading PDF pages: {e}"
 
+
 @tool
 def search_for_similar_cases(current_page_text: str, next_page_text: str) -> str:
-    """Searches the vector store for similar past cases to aid in splitting decisions."""
+    """
+    Searches the vector store for similar past cases to aid in document splitting decisions.
+
+    Args:
+        current_page_text (str): Text content of the current page.
+        next_page_text (str): Text content of the next page.
+
+    Returns:
+        str: Description of the most similar past case and its decision, or a message if none found.
+    """
     if not config.MONGO_URI:
         return "MongoDB URI not configured. Cannot search for similar cases."
     try:
@@ -68,7 +82,15 @@ def search_for_similar_cases(current_page_text: str, next_page_text: str) -> str
 
 @tool
 def ask_human_for_confirmation(question: str) -> str:
-    """Asks the human user for a 'yes' or 'no' confirmation when the agent is unsure."""
+    """
+    Asks the human user for a 'yes' or 'no' confirmation when the agent is unsure about a document split.
+
+    Args:
+        question (str): The question to present to the human user.
+
+    Returns:
+        str: Human feedback indicating whether this is a new document or not.
+    """
     print("\n--- HUMAN-IN-THE-LOOP REQUIRED ---")
     print(f"Agent asks: {question}")
     while True:
@@ -81,7 +103,18 @@ def ask_human_for_confirmation(question: str) -> str:
 
 @tool
 def save_document(page_indices: List[int], company: str, date: str, title: str) -> str:
-    """Saves the specified pages as a new PDF document with a dynamically generated name."""
+    """
+    Saves the specified pages as a new PDF document with a dynamically generated name based on company, date, and title.
+
+    Args:
+        page_indices (List[int]): List of page indices to save as a new document.
+        company (str): Name of the company or sender.
+        date (str): Date associated with the document (e.g., letter date).
+        title (str): Title or subject of the document.
+
+    Returns:
+        str: Success message with output path, or error message if saving fails.
+    """
     if not page_indices:
         return "Error: No page indices provided to save."
     try:
