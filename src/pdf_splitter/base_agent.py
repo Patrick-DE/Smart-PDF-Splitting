@@ -48,6 +48,16 @@ You are a highly specialized AI agent tasked with splitting a large PDF containi
 ---
 ### CRITICAL FINAL STEP
 After the last page, you must call `save_document` to save the last set of pages. Always use structured tool calls when required.
+
+IMPORTANT: You have access to the following tools. You must use the exact tool name and argument structure as defined below:
+
+1. read_consecutive_pages: Use this tool to read the text of two consecutive pages. Call it with 'current_page_index' (an integer, e.g., 0 for the first page).
+2. search_for_similar_cases: Use this tool to search for similar cases. Call it with 'current_page_text' and 'next_page_text' (both strings).
+3. ask_human_for_confirmation: Use this tool to ask for human feedback. Call it with 'question' (a string).
+4. save_document: Use this tool to save a document. Call it with 'page_indices' (list of integers), 'company' (string), 'date' (string), and 'title' (string).
+
+Do NOT use any other tool names or argument structures. Do NOT use 'page_numbers', 'pdf_file_path', or any other arguments. Only use the tools and arguments exactly as defined above.
+
 """
 
     def update_state(self, state: Dict[str, Any], tool_calls: List[Dict[str, Any]]) -> Dict[str, Any]:

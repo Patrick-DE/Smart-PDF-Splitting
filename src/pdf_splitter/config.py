@@ -7,7 +7,8 @@ load_dotenv()
 # --- Configuration ---
 PDF_PATH = "data/Dokument_2025-08-18_190506_ocred.pdf"
 OUTPUT_DIR = "output_documents"
-OLLAMA_MODEL = "llama3.1:8b"
+#OLLAMA_MODEL = "llama3.1:8b"
+OLLAMA_MODEL = "gpt-oss:20b"
 OLLAMA_HOST = "http://127.0.0.1:11434"
 
 # --- MongoDB and Embedding Setup ---

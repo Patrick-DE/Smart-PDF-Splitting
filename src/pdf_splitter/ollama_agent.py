@@ -75,7 +75,7 @@ class OllamaPDFSplitterAgent(BasePDFSplitterAgent):
         }
         response = self.client.chat(**ollama_request)
         tool_calls = response.get("message", {}).get("tool_calls") or []
-        
+
         # Ensure messages list is properly updated
         response_message = response.get("message", {})
         if response_message:
@@ -88,7 +88,9 @@ class OllamaPDFSplitterAgent(BasePDFSplitterAgent):
             if not name:
                 continue
 
-            # Dynamically call the tool function
+            # Dynamically call the tool function by name. Tools are plain
+            # Python functions (no LangChain @tool decorator) so we call them
+            # directly with kwargs provided by the model.
             tool_function = globals().get(name)
             if tool_function:
                 try:
