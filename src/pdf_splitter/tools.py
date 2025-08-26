@@ -62,7 +62,7 @@ def read_consecutive_pages(current_page_index: int) -> str:
         # Read current page
         if 0 <= current_page_index < len(reader.pages):
             page_text = reader.pages[current_page_index].extract_text()
-            print(f"[DEBUG] Extracted text (page {current_page_index}): {page_text}")
+            # print(f"[DEBUG] Extracted text (page {current_page_index}): {page_text}")
             content += f"--- Page {current_page_index + 1} Content ---\n{page_text}\n\n"
         else:
             return f"Error: Current page index {current_page_index} is out of bounds."
@@ -70,7 +70,7 @@ def read_consecutive_pages(current_page_index: int) -> str:
         # Read next page
         if current_page_index + 1 < len(reader.pages):
             next_page_text = reader.pages[current_page_index + 1].extract_text()
-            print(f"[DEBUG] Extracted text (page {current_page_index + 1}): {next_page_text}")
+            # print(f"[DEBUG] Extracted text (page {current_page_index + 1}): {next_page_text}")
             content += f"--- Page {current_page_index + 2} Content ---\n{next_page_text}"
         else:
             content += "--- End of Document ---"

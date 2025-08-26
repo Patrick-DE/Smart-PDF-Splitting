@@ -55,6 +55,9 @@ IMPORTANT: You have access to the following tools. You must use the exact tool n
 2. search_for_similar_cases: Use this tool to search for similar cases. Call it with 'current_page_text' and 'next_page_text' (both strings).
 3. ask_human_for_confirmation: Use this tool to ask for human feedback. Call it with 'question' (a string).
 4. save_document: Use this tool to save a document. Call it with 'page_indices' (list of integers), 'company' (string), 'date' (string), and 'title' (string).
+    * Date: must be in YYYYMMDD format.
+    * Company: if the name consist of multiple words use a commonly used short identifier (examples: 'Deutsche Bahn' -> 'DB', 'Deutsche Bank' -> 'DBank', 'Stadtwerke Neu Isenburg' -> 'SWNI', 'GEWOBAU' -> 'GEWOBAU'), and strip legal suffixes like GmbH.
+    * Title: should be concise and short only a few key words max (no explanation).
 
 Do NOT use any other tool names or argument structures. Do NOT use 'page_numbers', 'pdf_file_path', or any other arguments. Only use the tools and arguments exactly as defined above.
 

@@ -28,7 +28,7 @@ if __name__ == "__main__":
         state = {
             "current_page_index": 0,
             "total_pages": total_pages,
-            "current_document_pages": [],
+            "current_document_pages": [0],
         }
         messages = [{"role": "user", "content": "Start processing the PDF. Please split it into logical documents."}]
 

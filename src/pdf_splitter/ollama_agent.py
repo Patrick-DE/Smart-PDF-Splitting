@@ -80,6 +80,7 @@ class OllamaPDFSplitterAgent(BasePDFSplitterAgent):
         response_message = response.get("message", {})
         if response_message:
             messages.append(response_message)
+            print(f"[DEBUG] Response message: {response_message.thinking}")
 
         for call in tool_calls:
             name = call.get("function", {}).get("name")
